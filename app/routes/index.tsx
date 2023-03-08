@@ -6,8 +6,22 @@ import { useOptionalUser } from "~/utils";
 export default function Index() {
   const user = useOptionalUser();
   return (
-    <main className="p-10">
+    <main>
+      <header className="mx-auto max-w-7xl py-6">
+        <nav className="flex justify-between px-20">
+          <Link
+            className="rounded-md bg-slate-400 p-5 text-white hover:opacity-50"
+            to="/resumebuilder/time"
+          >
+            Test
+          </Link>
+          <Link className="rounded-md bg-slate-400 p-5 text-white" to="/">
+            test 2
+          </Link>
+        </nav>
+      </header>
       <h1>Welcome to Military Resume</h1>
+
       {user ? (
         <Link
           to="/resumebuilder"
