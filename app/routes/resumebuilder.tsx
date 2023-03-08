@@ -1,6 +1,7 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
+import { Configuration, OpenAIApi } from "openai";
 
 import { getNoteListItems } from "~/models/note.server";
 import { requireUserId } from "~/session.server";
@@ -20,7 +21,7 @@ export default function NotesPage() {
     <div className="flex h-full min-h-screen flex-col">
       <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
         <h1 className="text-3xl font-bold">
-          <Link to=".">Notes</Link>
+          <Link to=".">Resume Builder</Link>
         </h1>
         <p>{user.email}</p>
         <Form action="/logout" method="post">
