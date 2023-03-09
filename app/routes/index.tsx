@@ -9,6 +9,7 @@ import { SSE } from "sse.js";
 import { Infosection } from "~/components/infosection";
 import { Submitform } from "~/components/submitform";
 import { Divider } from "~/components/ui/divider";
+import toast from "react-hot-toast";
 
 interface CreateChatCompletionResponseChoicesInnerMod
   extends CreateChatCompletionResponseChoicesInner {
@@ -22,7 +23,17 @@ type CreateChatCompletionResponseMod = CreateChatCompletionResponse & {
 export default function Index() {
   const [answer, setAnswer] = useState("");
 
+  const handleCopyAnswerToClipboard = useCallback(() => {
+    if (answer === "") {
+      return;
+    }
+
+    navigator.clipboard.writeText(answer);
+    toast("Copied to clipboard");
+  }, [answer]);
+
   const handlePromptSubmit = useCallback((prompt: string) => {
+    setAnswer("");
     const eventSource = new SSE("/openai/sse", {
       headers: {
         "content-type": "application/json",
@@ -81,15 +92,17 @@ export default function Index() {
           <div className="grid grid-cols-12 px-4 py-5 sm:px-6">
             <div className="col-span-11 ">{answer}</div>
             <div className="col-span-1 justify-self-end">
-              <button
-                title="copyanswer"
-                onClick={() => console.log("copy to clipboard")}
-              >
-                <ClipboardDocumentIcon
-                  className="mt-1 h-8 w-8 flex-none text-primary-600 hover:text-primary-500"
-                  aria-hidden="true"
-                />
-              </button>
+              {answer !== "" && (
+                <button
+                  title="copyanswer"
+                  onClick={handleCopyAnswerToClipboard}
+                >
+                  <ClipboardDocumentIcon
+                    className="mt-1 h-8 w-8 flex-none text-primary-600 hover:text-primary-500"
+                    aria-hidden="true"
+                  />
+                </button>
+              )}
             </div>
           </div>
         </div>

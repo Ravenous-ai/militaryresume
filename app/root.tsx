@@ -8,7 +8,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { Header } from "./components/header";
-
+import { Toaster } from "react-hot-toast";
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 
 export const links: LinksFunction = () => {
@@ -24,7 +24,7 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Remix Notes",
+  title: "Tongue & Quill",
   viewport: "width=device-width,initial-scale=1",
 });
 
@@ -38,6 +38,7 @@ export default function App() {
       <body className="h-full">
         <Header />
         <Outlet />
+        <Toaster />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

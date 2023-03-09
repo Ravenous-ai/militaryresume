@@ -18,7 +18,7 @@ export function Infosection() {
           will turn a block of descriptive text into a narrative statement.
         </p>
         <ul className="mt-8 space-y-8 text-gray-600">
-          <li className="flex gap-x-3">
+          {/* <li className="flex gap-x-3">
             <CheckCircleIcon
               className="mt-1 h-5 w-5 flex-none text-primary-600"
               aria-hidden="true"
@@ -31,7 +31,7 @@ export function Infosection() {
               this tool to be free, you must create an OpenAPI account and use
               your key to generate the bullets.
             </span>
-          </li>
+          </li> */}
           <li className="flex gap-x-3">
             <CheckCircleIcon
               className="mt-1 h-5 w-5 flex-none text-primary-600"
