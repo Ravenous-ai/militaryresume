@@ -1,10 +1,23 @@
 import { ClipboardDocumentIcon } from "@heroicons/react/20/solid";
-import { type CreateChatCompletionResponse } from "openai";
+import {
+  type ChatCompletionResponseMessage,
+  type CreateChatCompletionResponseChoicesInner,
+  type CreateChatCompletionResponse,
+} from "openai";
 import { useCallback, useState } from "react";
 import { SSE } from "sse.js";
 import { Infosection } from "~/components/infosection";
 import { Submitform } from "~/components/submitform";
 import { Divider } from "~/components/ui/divider";
+
+interface CreateChatCompletionResponseChoicesInnerMod
+  extends CreateChatCompletionResponseChoicesInner {
+  delta: ChatCompletionResponseMessage;
+}
+
+type CreateChatCompletionResponseMod = CreateChatCompletionResponse & {
+  choices: CreateChatCompletionResponseChoicesInnerMod[];
+};
 
 export default function Index() {
   const [answer, setAnswer] = useState("");
@@ -27,7 +40,7 @@ export default function Index() {
           return;
         }
 
-        const completionResponse: CreateChatCompletionResponse = JSON.parse(
+        const completionResponse: CreateChatCompletionResponseMod = JSON.parse(
           event.data
         );
 
