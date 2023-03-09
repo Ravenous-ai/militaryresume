@@ -1,50 +1,86 @@
-import { Link } from "@remix-run/react";
-import { Button } from "~/components/ui/Button";
-
-import { useOptionalUser } from "~/utils";
+import { ClipboardDocumentIcon } from "@heroicons/react/20/solid";
+import { type CreateChatCompletionResponse } from "openai";
+import { useCallback, useState } from "react";
+import { SSE } from "sse.js";
+import { Infosection } from "~/components/infosection";
+import { Submitform } from "~/components/submitform";
+import { Divider } from "~/components/ui/divider";
 
 export default function Index() {
-  const user = useOptionalUser();
-  return (
-    <main>
-      <header className="mx-auto max-w-7xl py-6">
-        <nav className="flex justify-between px-20">
-          <Link
-            className="rounded-md bg-slate-400 p-5 text-white hover:opacity-50"
-            to="/resumebuilder/time"
-          >
-            Test
-          </Link>
-          <Link className="rounded-md bg-slate-400 p-5 text-white" to="/">
-            test 2
-          </Link>
-        </nav>
-      </header>
-      <h1>Welcome to Military Resume</h1>
+  const [answer, setAnswer] = useState("");
 
-      {user ? (
-        <Link
-          to="/resumebuilder"
-          className="flex items-center justify-center rounded-md border border-transparent bg-gray-50 px-4 py-3 text-base font-medium text-blue-500 shadow-md hover:bg-blue-50 sm:px-8"
-        >
-          View Resume Builder for {user.email}
-        </Link>
-      ) : (
-        <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
-          <Link
-            to="/join"
-            className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-blue-500 shadow-sm hover:bg-blue-50 sm:px-8"
-          >
-            Sign up
-          </Link>
-          <Link
-            to="/login"
-            className="flex items-center justify-center rounded-md bg-blue-700 px-4 py-3 font-medium text-white hover:bg-blue-600"
-          >
-            Log In
-          </Link>
+  const handlePromptSubmit = useCallback((prompt: string) => {
+    const eventSource = new SSE("/openai/sse", {
+      headers: {
+        "content-type": "application/json",
+      },
+      payload: JSON.stringify({ prompt }),
+    });
+
+    eventSource.onerror = (error) => {
+      console.log("error", error);
+    };
+    eventSource.onmessage = (event) => {
+      try {
+        if (event.data === "[DONE]") {
+          eventSource.close();
+          return;
+        }
+
+        const completionResponse: CreateChatCompletionResponse = JSON.parse(
+          event.data
+        );
+
+        const [{ delta }] = completionResponse.choices;
+
+        if (delta.content === undefined) {
+          return;
+        }
+
+        setAnswer((answer) => {
+          return (answer ?? "") + delta.content;
+        });
+      } catch (e) {
+        console.log("error", e);
+      }
+    };
+
+    eventSource.stream();
+
+    return () => {
+      eventSource.removeEventListener("error", () => {
+        console.log("error");
+      });
+      eventSource.removeEventListener("message", () => {
+        console.log("event closed");
+      });
+      eventSource.close();
+    };
+  }, []);
+
+  return (
+    <>
+      <main>
+        <div className="mx-auto max-w-3xl bg-white py-24 px-6 lg:px-8">
+          <Infosection />
+          <Submitform handlePromptSubmit={handlePromptSubmit} />
+          <Divider title="RESULTS" />
+          <div className="grid grid-cols-12 px-4 py-5 sm:px-6">
+            <div className="col-span-11 ">{answer}</div>
+            <div className="col-span-1 justify-self-end">
+              <button
+                title="copyanswer"
+                onClick={() => console.log("copy to clipboard")}
+              >
+                <ClipboardDocumentIcon
+                  className="mt-1 h-8 w-8 flex-none text-primary-600 hover:text-primary-500"
+                  aria-hidden="true"
+                />
+              </button>
+            </div>
+          </div>
         </div>
-      )}
-    </main>
+      </main>
+    </>
   );
 }

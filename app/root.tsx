@@ -1,5 +1,4 @@
-import type { LinksFunction, LoaderArgs, MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -8,12 +7,19 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { Header } from "./components/header";
 
-import { getUser } from "./session.server";
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
+  return [
+    { rel: "stylesheet", href: tailwindStylesheetUrl },
+    {
+      rel: "preconnect",
+      href: "https://rsms.me/inter/inter.css",
+      crossOrigin: "anonymous",
+    },
+  ];
 };
 
 export const meta: MetaFunction = () => ({
@@ -22,12 +28,6 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-export async function loader({ request }: LoaderArgs) {
-  return json({
-    user: await getUser(request),
-  });
-}
-
 export default function App() {
   return (
     <html lang="en" className="h-full scroll-smooth">
@@ -35,7 +35,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="h-full bg-slate-200">
+      <body className="h-full">
+        <Header />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
