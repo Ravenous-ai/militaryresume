@@ -6,7 +6,7 @@ import { Link } from "@remix-run/react";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Narrative Builder", href: "/narrativebuilder" },
-  { name: "Blog", href: "#" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
   { name: "About", href: "/about" },
 ];
@@ -15,7 +15,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <>
-      <header className="absolute inset-x-0 top-0 z-50">
+      <header className="inset-x-0 mb-4">
         <nav
           className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
           aria-label="Global"

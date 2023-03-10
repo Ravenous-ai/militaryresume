@@ -81,7 +81,7 @@ export default function NarrativeBuilderPage() {
     };
   }, []);
   return (
-    <div className="mx-auto max-w-3xl bg-white py-24 px-6 lg:px-8">
+    <div className="mx-auto max-w-3xl bg-white px-6 lg:px-8">
       <Submitform handlePromptSubmit={handlePromptSubmit} />
       <Divider title="RESULTS" />
       <div className="grid grid-cols-12 px-4 py-5 sm:px-6">

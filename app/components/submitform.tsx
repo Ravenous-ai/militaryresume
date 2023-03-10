@@ -8,7 +8,7 @@ export function Submitform({
   const [prompt, setPrompt] = useState("");
   return (
     <div className="relative pt-32">
-      <div className="overflow-hidden rounded-lg shadow-md ring-gray-300 focus-within:ring-primary-600">
+      <div className="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-primary-600">
         <label htmlFor="prompt" className="sr-only">
           Add your information
         </label>
@@ -16,7 +16,7 @@ export function Submitform({
           rows={5}
           name="prompt"
           id="prompt"
-          className="block w-full resize-none border-0 text-gray-500 placeholder:text-gray-500 focus:ring-0 sm:py-1.5 sm:text-sm sm:leading-6"
+          className="block w-full resize-none border-0 bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:py-1.5 sm:text-sm sm:leading-6"
           placeholder="Add your information..."
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
