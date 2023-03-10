@@ -6,9 +6,9 @@ import { Link } from "@remix-run/react";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Narrative Builder", href: "/narrativebuilder" },
-  { name: "Blog", href: "/blog" },
+  // { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
-  { name: "About", href: "/about" },
+  // { name: "About", href: "/about" },
 ];
 
 export function Header() {

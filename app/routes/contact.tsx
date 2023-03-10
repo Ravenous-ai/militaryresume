@@ -7,7 +7,7 @@ export default function ContactPage() {
             Contact
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-600">
-            We also have a discord server. Please join us{" "}
+            We have a discord server. Please join us{" "}
             <a
               className="text-primary-600"
               href="https://discord.gg/sCD4HRxK"
@@ -19,7 +19,7 @@ export default function ContactPage() {
             .
           </p>
         </div>
-        <form
+        {/* <form
           action="#"
           method="POST"
           className="mx-auto mt-16 max-w-xl sm:mt-20"
@@ -87,7 +87,7 @@ export default function ContactPage() {
               Send
             </button>
           </div>
-        </form>
+        </form> */}
       </div>
     </div>
   );
