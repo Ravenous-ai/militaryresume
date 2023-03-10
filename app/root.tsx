@@ -10,7 +10,6 @@ import {
 import { Header } from "./components/header";
 import { Toaster } from "react-hot-toast";
 import tailwindStylesheetUrl from "./styles/tailwind.css";
-import { useId } from "react";
 
 export const links: LinksFunction = () => {
   return [
@@ -25,7 +24,7 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Tongue & Quill",
+  title: "The Battle Bard",
   viewport: "width=device-width,initial-scale=1",
 });
 

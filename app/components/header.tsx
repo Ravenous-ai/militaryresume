@@ -21,13 +21,13 @@ export function Header() {
           aria-label="Global"
         >
           <a href="/" className="-m-1.5 p-1.5 text-xl text-primary-600">
-            <span className="sr-only">TongueandQuillAI</span>
+            <span className="sr-only">The Battle Bard</span>
             {/* <img
             className="h-8 w-auto"
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt=""
           /> */}
-            Tongue&Quill AI
+            The Battle Bard
           </a>
           <div className="flex lg:hidden">
             <button
