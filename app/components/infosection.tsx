@@ -79,12 +79,12 @@ export function Infosection() {
           >
             Get started
           </Link>
-          <Link
+          {/* <Link
             to="/blog"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Learn more <span aria-hidden="true">→</span>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>
