@@ -26,6 +26,7 @@ export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "The Battle Bard",
   viewport: "width=device-width,initial-scale=1",
+  description: "This is website to help airmen write better",
 });
 
 export default function App() {
